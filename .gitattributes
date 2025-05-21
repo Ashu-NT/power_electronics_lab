@@ -1,0 +1,8 @@
+# enforce Unix line endings in all text files
+* text=auto eol=lf
+
+# make sure notebooks, scripts, etc., all stay LF
+*.py     text eol=lf
+*.ipynb  text eol=lf
+*.md     text eol=lf
+*.txt    text eol=lf

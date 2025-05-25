@@ -10,7 +10,7 @@ from logger import logging
 # Functions below are used to import data
 # Please to verify the data and change the "skiprows" values accordingly
 
-def import_simulation_data(file_path, skiprows=1) -> pd.DataFrame:
+def import_simulation_data(file_path, skiprows=0) -> pd.DataFrame:
     """
     Import data from simulation software (e.g., LTSpice)
     """

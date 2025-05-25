@@ -37,7 +37,7 @@ def plot_two_variable(x_data=None,  y_data=None, x_label='', y_label='', title='
              
              ax.plot(x_data, y_data, 'b-', label=label)    
     except Exception as e:
-        print(f"Error Plotting: {e}")
+        logging.info(f"Error Plotting: {e}")
         
     # Set labels and title
     ax.set_xlabel(x_label)
@@ -57,7 +57,7 @@ def plot_sim_data(sim_data=None,  x_label='', y_label='', title='', label ="LTSp
              y_sim = sim_data.iloc[1:, 1]  # Adjust column index as needed
              ax.plot(x_sim, y_sim, 'ro', label=label)    
     except Exception as e:
-        print(f"Error Plotting: {e}")
+        logging.info(f"Error Plotting: {e}")
         
     # Set labels and title
     ax.set_xlabel(x_label)
@@ -112,7 +112,7 @@ def plot_multiple_sim_data(sim_data=None,  x_label='',title='',
             ax1.legend(lines, labels, loc='upper right')
 
     except Exception as e:
-            print(f"Error Plotting: {e}")
+            logging.info(f"Error Plotting: {e}")
 
     ax1.set_xlabel(x_label)
     ax1.set_title(title)
@@ -131,7 +131,7 @@ def plot_single_oscillo_data(ch1_data=None,ch2_data=None,  x_label='', y_label='
              y_ch2 = ch2_data.iloc[:, 1]  # Adjust column index as needed
              ax.plot(x_ch1, y_ch2, 'b-', label=label)    
     except Exception as e:
-        print(f"Error Plotting: {e}")
+        logging.info(f"Error Plotting: {e}")
         
     # Set labels and title
     ax.set_xlabel(x_label)

@@ -3,4 +3,5 @@ matplotlib
 setuptools
 numpy
 seaborn
+scipy
 -e .

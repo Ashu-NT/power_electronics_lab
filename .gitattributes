@@ -6,7 +6,3 @@
 *.ipynb  text eol=lf
 *.md     text eol=lf
 *.txt    text eol=lf
-
-*.ipynb	diff=jupyternotebook
-
-*.ipynb	merge=jupyternotebook

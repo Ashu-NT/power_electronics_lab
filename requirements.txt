@@ -4,5 +4,4 @@ setuptools
 numpy
 seaborn
 scipy
-nbdime
 -e .

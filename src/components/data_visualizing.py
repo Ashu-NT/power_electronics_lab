@@ -77,17 +77,17 @@ def plot_sim_data(sim_data=None,  x_label='', y_label='', title='',
                 t_sim = sim_data.iloc[1:, 0]  # Adjust column index as needed
                 x_sim = sim_data.iloc[1:, 1]  # Adjust column index as needed
                 y_sim = sim_data.iloc[1:, 2]  # Adjust column index as needed
-                ax.plot(t_sim, x_sim, color="#4CC91E89", linestyle="-.", label=label1) 
-                ax.plot(t_sim, y_sim, color="#db1eb5", linestyle="-.", label=label2)    
+                ax.plot(t_sim, x_sim, color="#4CC91E89", linestyle="-", label=label1) 
+                ax.plot(t_sim, y_sim, color="#db1eb5", linestyle="-", label=label2)    
     except Exception as e:
         logging.info(f"Error Plotting: {e}")
             
-        # Set labels and title
-        ax.set_xlabel(x_label)
-        ax.set_ylabel(y_label)
-        ax.set_title(title)
-        ax.grid(True)
-        ax.legend()
+     # Set labels and title
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    ax.set_title(title)
+    ax.grid(True)
+    ax.legend(loc='upper right', bbox_to_anchor=(1.2, 1))
     
     plt.tight_layout()
     return fig, ax

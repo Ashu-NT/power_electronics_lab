@@ -49,22 +49,42 @@ def plot_two_variable(x_data=None,  y_data=None, x_label='', y_label='', title='
     plt.tight_layout()
     return fig, ax
 
-def plot_sim_data(sim_data=None,  x_label='', y_label='', title='', label ="LTSpice Simulation"):
+def plot_sim_data(sim_data=None,  x_label='', y_label='', title='',
+                  label ="LTSpice Simulation", label1='',label2='',is_multi=True):
     fig, ax = plt.subplots()
+    
+    if is_multi:
+        try:
+            if sim_data is not None:
+                x_sim = sim_data.iloc[1:, 0]  # Adjust column index as needed
+                y_sim = sim_data.iloc[1:, 1]  # Adjust column index as needed
+                ax.plot(x_sim, y_sim, 'ro', label=label)    
+        except Exception as e:
+            logging.info(f"Error Plotting: {e}")
+            
+        # Set labels and title
+        ax.set_xlabel(x_label)
+        ax.set_ylabel(y_label)
+        ax.set_title(title)
+        ax.grid(True)
+        ax.legend()
+    
     try:
         if sim_data is not None:
-             x_sim = sim_data.iloc[1:, 0]  # Adjust column index as needed
-             y_sim = sim_data.iloc[1:, 1]  # Adjust column index as needed
-             ax.plot(x_sim, y_sim, 'ro', label=label)    
+                t_sim = sim_data.iloc[1:, 0]  # Adjust column index as needed
+                x_sim = sim_data.iloc[1:, 0]  # Adjust column index as needed
+                y_sim = sim_data.iloc[1:, 1]  # Adjust column index as needed
+                ax.plot(t_sim, x_sim, 'ro', label=label1) 
+                ax.plot(t_sim, y_sim, 'ro', label=label2)    
     except Exception as e:
         logging.info(f"Error Plotting: {e}")
-        
-    # Set labels and title
-    ax.set_xlabel(x_label)
-    ax.set_ylabel(y_label)
-    ax.set_title(title)
-    ax.grid(True)
-    ax.legend()
+            
+        # Set labels and title
+        ax.set_xlabel(x_label)
+        ax.set_ylabel(y_label)
+        ax.set_title(title)
+        ax.grid(True)
+        ax.legend()
     
     plt.tight_layout()
     return fig, ax

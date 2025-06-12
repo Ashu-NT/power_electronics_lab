@@ -50,7 +50,7 @@ def plot_two_variable(x_data=None,  y_data=None, x_label='', y_label='', title='
     return fig, ax
 
 def plot_sim_data(sim_data=None,  x_label='', y_label='', title='',
-                  label ="LTSpice Simulation", label1='',label2='',is_multi=False):
+                  label ="LTSpice Simulation", label1='',label2='',is_multi=False, color1="#1E4CC988",color2="#1edb50"):
     fig, ax = plt.subplots()
     
     if not is_multi:
@@ -77,8 +77,8 @@ def plot_sim_data(sim_data=None,  x_label='', y_label='', title='',
                 t_sim = sim_data.iloc[1:, 0]  # Adjust column index as needed
                 x_sim = sim_data.iloc[1:, 1]  # Adjust column index as needed
                 y_sim = sim_data.iloc[1:, 2]  # Adjust column index as needed
-                ax.plot(t_sim, x_sim, color="#4CC91E89", linestyle="-", label=label1) 
-                ax.plot(t_sim, y_sim, color="#db1eb5", linestyle="-", label=label2)    
+                ax.plot(t_sim, x_sim, color=color1, linestyle="-", label=label1) 
+                ax.plot(t_sim, y_sim, color=color2, linestyle="-", label=label2)    
     except Exception as e:
         logging.info(f"Error Plotting: {e}")
             

@@ -250,3 +250,54 @@ def plot_multiple_data(processed_data:dict,values:list,x_label='', y_label='', t
     plt.tight_layout()
     
     return fig,ax
+
+
+## Function to insert an oscilloscope screenshot
+
+def insert_osc_screenshot(img_path,img_title) -> None:
+    try:
+        img = mpimg.imread(img_path)
+        plt.imshow(img)
+        plt.axis('off')
+        plt.title(img_title, fontsize=16)
+        plt.tight_layout()
+        plt.show()
+    except Exception as e:
+        display(Markdown(f"**The image location is wrong, or it is not uploaded at all."))
+        logging.info(f"Error Inserting Oscilloscope screenshot {e}")
+        
+
+def plot_sim_data_overlap(sim_data=None, time_col='time', wave1_col='input_wave', wave2_col='amplifier_output',
+                  x_label='Time', y_label='Amplitude', title='',
+                  label1="Input Wave", label2="Amplifier Output",
+                  label_diff="Difference (Output - Input)",
+                  color1="#1E4CC988", color2="#1edb50", color_diff="red",
+                  plot_difference=True):
+    fig, ax = plt.subplots(figsize=(10,6))
+    
+    try:
+        if sim_data is not None:
+            x = sim_data[time_col]
+            y1 = sim_data[wave1_col]
+            y2 = sim_data[wave2_col]
+            
+            ax.plot(x, y1, label=label1, color=color1, linewidth=2)
+            ax.plot(x, y2, label=label2, color=color2, linewidth=2, alpha=0.7)
+            
+            if plot_difference:
+                diff = y2 - y1
+                ax.plot(x, diff, label=label_diff, linestyle='--', color=color_diff)
+        
+            ax.set_xlabel(x_label)
+            ax.set_ylabel(y_label)
+            ax.set_title(title)
+            ax.grid(True)
+            ax.legend()
+            plt.tight_layout()
+        else:
+            logging.info("No simulation data provided.")
+            
+    except Exception as e:
+        logging.info(f"Error Plotting: {e}")
+        
+    return fig, ax

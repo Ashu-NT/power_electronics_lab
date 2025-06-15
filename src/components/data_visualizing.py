@@ -301,3 +301,22 @@ def plot_sim_data_overlap(sim_data=None, time_col='time', wave1_col='input_wave'
         logging.info(f"Error Plotting: {e}")
         
     return fig, ax
+
+def plot_two_xy(df1, df2, 
+                x1, y1, x2, y2,
+                label1='Dataset 1', label2='Dataset 2',
+                x_label='X', y_label='Y',
+                title='XY Plot Comparison',
+                color1='blue', color2='green'):
+    plt.figure(figsize=(10, 6))
+    
+    plt.plot(df1[x1], df1[y1], label=label1, color=color1, linewidth=2)
+    plt.plot(df2[x2], df2[y2], label=label2, color=color2, linestyle='--', linewidth=2)
+
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    plt.title(title)
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()

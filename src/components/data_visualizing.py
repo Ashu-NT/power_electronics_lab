@@ -50,7 +50,7 @@ def plot_two_variable(x_data=None,  y_data=None, x_label='', y_label='', title='
     return fig, ax
 
 def plot_sim_data(sim_data=None,  x_label='', y_label='', title='',
-                  label ="LTSpice Simulation", label1='',label2='',is_multi=False):
+                  label ="LTSpice Simulation", label1='',label2='',is_multi=False, color1="#1E4CC988",color2="#1edb50"):
     fig, ax = plt.subplots()
     
     if not is_multi:
@@ -77,8 +77,8 @@ def plot_sim_data(sim_data=None,  x_label='', y_label='', title='',
                 t_sim = sim_data.iloc[1:, 0]  # Adjust column index as needed
                 x_sim = sim_data.iloc[1:, 1]  # Adjust column index as needed
                 y_sim = sim_data.iloc[1:, 2]  # Adjust column index as needed
-                ax.plot(t_sim, x_sim, color="#4CC91E89", linestyle="-", label=label1) 
-                ax.plot(t_sim, y_sim, color="#db1eb5", linestyle="-", label=label2)    
+                ax.plot(t_sim, x_sim, color=color1, linestyle="-", label=label1) 
+                ax.plot(t_sim, y_sim, color=color2, linestyle="-", label=label2)    
     except Exception as e:
         logging.info(f"Error Plotting: {e}")
             
@@ -250,3 +250,73 @@ def plot_multiple_data(processed_data:dict,values:list,x_label='', y_label='', t
     plt.tight_layout()
     
     return fig,ax
+
+
+## Function to insert an oscilloscope screenshot
+
+def insert_osc_screenshot(img_path,img_title) -> None:
+    try:
+        img = mpimg.imread(img_path)
+        plt.imshow(img)
+        plt.axis('off')
+        plt.title(img_title, fontsize=16)
+        plt.tight_layout()
+        plt.show()
+    except Exception as e:
+        display(Markdown(f"**The image location is wrong, or it is not uploaded at all."))
+        logging.info(f"Error Inserting Oscilloscope screenshot {e}")
+        
+
+def plot_sim_data_overlap(sim_data=None, time_col='time', wave1_col='input_wave', wave2_col='amplifier_output',
+                  x_label='Time', y_label='Amplitude', title='',
+                  label1="Input Wave", label2="Amplifier Output",
+                  label_diff="Difference (Output - Input)",
+                  color1="#1E4CC988", color2="#1edb50", color_diff="red",
+                  plot_difference=True):
+    fig, ax = plt.subplots(figsize=(10,6))
+    
+    try:
+        if sim_data is not None:
+            x = sim_data[time_col]
+            y1 = sim_data[wave1_col]
+            y2 = sim_data[wave2_col]
+            
+            ax.plot(x, y1, label=label1, color=color1, linewidth=2)
+            ax.plot(x, y2, label=label2, color=color2, linewidth=2, alpha=0.7)
+            
+            if plot_difference:
+                diff = y2 - y1
+                ax.plot(x, diff, label=label_diff, linestyle='--', color=color_diff)
+        
+            ax.set_xlabel(x_label)
+            ax.set_ylabel(y_label)
+            ax.set_title(title)
+            ax.grid(True)
+            ax.legend()
+            plt.tight_layout()
+        else:
+            logging.info("No simulation data provided.")
+            
+    except Exception as e:
+        logging.info(f"Error Plotting: {e}")
+        
+    return fig, ax
+
+def plot_two_xy(df1, df2, 
+                x1, y1, x2, y2,
+                label1='Dataset 1', label2='Dataset 2',
+                x_label='X', y_label='Y',
+                title='XY Plot Comparison',
+                color1='blue', color2='green'):
+    plt.figure(figsize=(10, 6))
+    
+    plt.plot(df1[x1], df1[y1], label=label1, color=color1, linewidth=2)
+    plt.plot(df2[x2], df2[y2], label=label2, color=color2, linestyle='--', linewidth=2)
+
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    plt.title(title)
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
